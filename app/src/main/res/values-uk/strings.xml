@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="rus">Російська</string>
+    <string name="ukr">Українська</string>
+
+    <string name="mode_ukr_kmu10">Паспортний</string>
+
+    <string name="hint_enter_text">Нажмите, чтобы ввести текст</string>
+    <string name="loading">Завантаження</string>
+    <string name="menu_oss_licenses">Ліцензії ПЗ</string>
+    <string name="menu_privacy_policy">Політика конфіденційності</string>
+
+    <string name="no_voice_recognition">Розпізнавання голосу відсутнє</string>
+    <string name="mode_ukr_usbgn">BGN/PCGN 1965 System</string>
+    <string name="mode_ukr_gost779">ГОСТ 7.79–2000 Б</string>
+    <string name="mode_rus_gostr52535">ГОСТ Р 52535.1–2006</string>
+    <string name="litera_text_copy_label">Трансліт</string>
+    <string name="text_copied">Текст скопійований</string>
+    <string name="desc_voice_recognition">Розпізнавання голосу</string>
+    <string name="desc_camera_recognition">Розпізнавання зображень</string>
+
+    <plurals name="symbols_amount">
+        <item quantity="one">%1$d літера\u00A0</item>
+        <item quantity="few">%1$d літери\u00A0</item>
+        <item quantity="many">%1$d литер\u00A0</item>
+        <item quantity="other">%1$d літер\u00A0</item>
+    </plurals>
+
+</resources>

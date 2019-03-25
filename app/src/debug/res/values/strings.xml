@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">Litera Dbg</string>
+    <string name="ad_unit_id" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="ad_unit_id_translit" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
+
+    <string name="leak_canary_display_activity_label" translatable="false">Litera Dbg Leaks</string>
+    <string name="menu_debug_settings" translatable="false">Settings</string>
+</resources>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~   Copyright © Sergei Munovarov. All rights reserved.
+  ~   See LICENCE for license details.
+  -->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/mmDebugSettings"
+        android:title="@string/menu_debug_settings"
+        android:visible="@bool/show_debug_settings" />
+    <item
+        android:id="@+id/mmLicence"
+        android:title="@string/menu_oss_licenses" />
+    <item
+        android:id="@+id/mmPrivacyPolicy"
+        android:title="@string/menu_privacy_policy" />
+</menu>

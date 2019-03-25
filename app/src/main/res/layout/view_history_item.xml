@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="listener"
+            type="ua.sergeimunovarov.litera.main.history.HistoryItemClickListener" />
+
+        <variable
+            name="item"
+            type="ua.sergeimunovarov.litera.db.Item" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_history_item"
+        android:onClick="@{() -> listener.onItemClicked(item)}"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{item.original}"
+            tools:text="Слово" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@{item.romanized}"
+            tools:text="Slovo" />
+
+        <TextView
+            style="?attr/symbolTextViewStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:gravity="end"
+            android:text="@{@plurals/symbols_amount(item.romanized.length(), item.romanized.length())}"
+            tools:text="5 letters" />
+
+    </LinearLayout>
+</layout>

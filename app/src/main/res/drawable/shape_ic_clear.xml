@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~   Copyright © Sergei Munovarov. All rights reserved.
+  ~   See LICENCE for license details.
+  -->
+
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+        <ripple android:color="@color/background">
+            <item android:id="@android:id/mask">
+                <shape android:shape="oval">
+                    <solid android:color="@color/background" />
+                </shape>
+            </item>
+
+            <item android:id="@android:id/background">
+                <shape android:shape="oval">
+                    <solid android:color="@color/transparent" />
+                </shape>
+            </item>
+        </ripple>
+    </item>
+
+    <item android:drawable="@drawable/ic_clear" />
+
+</layer-list>
