@@ -1,0 +1,80 @@
+version: 2.1
+
+executors:
+  android:
+    docker:
+      - image: circleci/android:api-29
+    working_directory: ~/litera
+
+jobs:
+  prepare:
+    executor: android
+    steps:
+      - checkout
+      - run:
+          name: Generate key.properties file
+          command: sh load.sh
+      - run:
+          name: Generate google-services.json file
+          command: echo $GOOGLE_SERVICES | base64 -d >> ~/litera/app/google-services.json
+      - persist_to_workspace:
+          root: ~/litera
+          paths:
+            - key.properties
+            - app/google-services.json
+  test:
+    executor: android
+    environment:
+      JVM_OPTS: -Xmx3200m
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/litera
+      - run:
+          name: Make gradlew executable
+          command: chmod +x gradlew
+      - restore_cache:
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
+      - run:
+          name: Download Deps
+          command: ./gradlew androidDependencies
+      - save_cache:
+          paths:
+            - ~/.gradle
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
+      - run:
+          name: Run Tests
+          command: ./gradlew app:lintDebug app:testDebugUnitTest
+      - store_artifacts:
+          path: app/build/reports
+          destination: reports
+      - store_test_results:
+          path: app/build/test-results
+  build_debug_apk:
+    executor: android
+    environment:
+      JVM_OPTS: -Xmx3200m
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/litera
+      - run:
+          name: Make gradlew executable
+          command: chmod +x gradlew
+      - run:
+          name: Build apk
+          command: ./gradlew app:assembleDebug
+      - store_artifacts:
+          path: app/build/outputs/apk/debug
+
+workflows:
+  version: 2.1
+  build:
+    jobs:
+      - prepare
+      - test:
+          requires:
+            - prepare
+      - build_debug_apk:
+          requires:
+            - test
