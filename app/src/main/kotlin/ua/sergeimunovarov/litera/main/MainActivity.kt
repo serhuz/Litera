@@ -154,12 +154,12 @@ class MainActivity : BaseActivity() {
         ).withBackgroundColor(R.color.primary).show()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?) = run {
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
-        true
+        return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?) = run {
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.mmLicence ->
                 Intent(this, OssLicensesMenuActivity::class.java).let(this::startActivity)
@@ -174,7 +174,7 @@ class MainActivity : BaseActivity() {
             else ->
                 error("Unexpected item id")
         }
-        true
+        return true
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -224,4 +224,3 @@ class MainActivity : BaseActivity() {
         private const val CODE_TRANSLIT = 2002
     }
 }
-

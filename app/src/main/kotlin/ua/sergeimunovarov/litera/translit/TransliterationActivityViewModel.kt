@@ -50,7 +50,6 @@ class TransliterationActivityViewModel(private val state: SavedStateHandle,
             flow { emit(translator.replaceCharacters(text)) }
                     .flowOn(DispatcherRegistry.io)
 
-
     fun exit() {
         exitEvent.call()
     }

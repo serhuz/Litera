@@ -5,12 +5,10 @@
 
 package ua.sergeimunovarov.litera.util
 
-
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.speech.RecognizerIntent
 import ua.sergeimunovarov.litera.db.Lang
-
 
 object VoiceRecognitionUtil {
 
@@ -30,5 +28,4 @@ object VoiceRecognitionUtil {
                     Lang.UK -> putExtra(RecognizerIntent.EXTRA_LANGUAGE, "uk-UA")
                 }
             }
-
 }

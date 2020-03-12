@@ -6,6 +6,7 @@ apply plugin: 'io.fabric'
 apply plugin: 'com.getkeepsafe.dexcount'
 apply plugin: 'org.ajoberstar.grgit'
 apply plugin: 'com.google.android.gms.oss-licenses-plugin'
+apply from: "$rootDir/detekt/detekt.gradle"
 
 def keyPropsFile = rootProject.file('key.properties')
 def keyProps = new Properties()
@@ -72,22 +73,9 @@ android {
         }
     }
 
-    sourceSets {
-        debug {
-            java.srcDirs += 'src/debug/kotlin'
-        }
-        main {
-            java.srcDirs += 'src/main/kotlin'
-        }
-        release {
-            java.srcDirs += 'src/release/kotlin'
-        }
-        androidTest {
-            java.srcDirs += "src/androidTest/kotlin"
-        }
-        test {
-            java.srcDirs += 'src/test/kotlin'
-        }
+    sourceSets.each { sourceSet ->
+        def name = sourceSet.getName()
+        sourceSet.java.srcDirs += "src/$name/kotlin"
     }
 
     buildTypes {
@@ -176,14 +164,18 @@ dependencies {
     testImplementation 'androidx.arch.core:core-testing:2.1.0'
 
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-intents:$espressoVersion"
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test:rules:1.2.0'
     androidTestImplementation "org.mockito:mockito-android:$mockitoVersion"
     androidTestImplementation "org.assertj:assertj-core:2.9.0"
     androidTestImplementation 'com.github.fabioCollini:DaggerMock:0.8.5'
+    androidTestImplementation "androidx.test:core:1.2.0"
     androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
     androidTestImplementation "androidx.room:room-testing:$roomVersion"
     androidTestUtil 'androidx.test:orchestrator:1.2.0'
+
+    detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:$detektVersion"
 }
 
 task copyResources(type: Copy, dependsOn: 'assembleDebug') {

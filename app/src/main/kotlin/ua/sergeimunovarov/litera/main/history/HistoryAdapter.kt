@@ -30,7 +30,6 @@ class HistoryAdapter : PagedListAdapter<Item, HistoryViewHolder>(DIFF_CALLBACK),
                 )
             }.let(::HistoryViewHolder)
 
-
     override fun onBindViewHolder(holder: HistoryViewHolder, position: Int) {
         holder.bind(this, getItem(position))
     }

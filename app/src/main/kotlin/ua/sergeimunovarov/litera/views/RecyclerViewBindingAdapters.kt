@@ -18,4 +18,3 @@ fun RecyclerView.applyDivider(divider: Drawable) {
             DividerItemDecoration(context, RecyclerView.VERTICAL).apply { setDrawable(divider) }
     )
 }
-

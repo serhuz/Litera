@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <Blacklist></Blacklist>
+  <Whitelist>
+    <ID>ComplexMethod:MainActivity.kt$MainActivity$override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?)</ID>
+    <ID>MagicNumber:TransliterationActivityViewModel.kt$TransliterationActivityViewModel$3</ID>
+    <ID>MaxLineLength:TranslitModule.kt$TranslitModule$@Provides @TransliterationActivityScope fun provideTransliterationActivityViewModer(prefs: Prefs, itemDAO: ItemDAO): TransliterationActivityViewModel.Factory</ID>
+    <ID>NestedBlockDepth:MainActivity.kt$MainActivity$override fun onOptionsItemSelected(item: MenuItem?)</ID>
+    <ID>NewLineAtEndOfFile:MainComponent.kt$ua.sergeimunovarov.litera.di.MainComponent.kt</ID>
+    <ID>NewLineAtEndOfFile:VoidLiveEvent.kt$ua.sergeimunovarov.litera.VoidLiveEvent.kt</ID>
+    <ID>TooManyFunctions:MainActivityViewModel.kt$MainActivityViewModel : ViewModel</ID>
+    <ID>TopLevelPropertyNaming:Prefs.kt$private const val defaultStandard = "{\"standard\":\"GOST_R_52535\"}"</ID>
+    <ID>TopLevelPropertyNaming:Prefs.kt$private const val keySetting = "setting"</ID>
+    <ID>WildcardImport:Litera.kt$import ua.sergeimunovarov.litera.di.*</ID>
+    <ID>WildcardImport:MainActivity.kt$import ua.sergeimunovarov.litera.*</ID>
+    <ID>WildcardImport:TransliterationActivityViewModel.kt$import androidx.lifecycle.*</ID>
+  </Whitelist>
+</SmellBaseline>

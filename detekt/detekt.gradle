@@ -1,0 +1,14 @@
+apply plugin: 'io.gitlab.arturbosch.detekt'
+
+detekt {
+    toolVersion = "$detektVersion"
+    config = files("$rootDir/detekt/detekt.yml")
+    baseline = file("detekt-baseline.xml")
+    parallel = true
+
+    reports {
+        xml.enabled = false
+        html.enabled = true
+        txt.enabled = false
+    }
+}

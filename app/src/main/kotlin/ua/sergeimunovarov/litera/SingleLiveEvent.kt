@@ -23,7 +23,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import java.util.concurrent.atomic.AtomicBoolean
 
-
 /**
  * A lifecycle-aware observable that sends only new updates after subscription, used for events like
  * navigation and Snackbar messages.
@@ -40,7 +39,6 @@ abstract class SingleLiveEvent<T> : MutableLiveData<T>() {
 
     private val mPending = AtomicBoolean(false)
 
-
     @MainThread
     override fun observe(owner: LifecycleOwner, observer: Observer<in T>) {
         if (hasActiveObservers()) {
@@ -49,11 +47,9 @@ abstract class SingleLiveEvent<T> : MutableLiveData<T>() {
 
         // Observe the internal MutableLiveData
         super.observe(owner, Observer {
-            if (mPending.compareAndSet(true, false))
-                observer.onChanged(it)
+            if (mPending.compareAndSet(true, false)) observer.onChanged(it)
         })
     }
-
 
     /**
      * Used for cases where T is Void, to make calls cleaner.
@@ -62,7 +58,6 @@ abstract class SingleLiveEvent<T> : MutableLiveData<T>() {
     fun call() {
         value = null
     }
-
 
     @MainThread
     override fun setValue(t: T?) {

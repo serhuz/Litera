@@ -12,7 +12,6 @@ class Prefs(private val preferences: SharedPreferences) {
     var setting: Setting
         get() = preferences.getString(keySetting, defaultStandard)!!.fromJson()
         set(value) = preferences.edit().putString(keySetting, value.toJson()).apply()
-
 }
 
 private const val keySetting = "setting"
