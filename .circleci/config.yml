@@ -109,6 +109,12 @@ jobs:
       - run:
           name: Build apk
           command: ./gradlew app:assembleDebug
+      - run:
+          name: Store Google Service Account
+          command: echo $GCLOUD_SERVICE_KEY | base64 -d > ${HOME}/gcloud-service-key.json
+      - run:
+          name: Upload to App Distribution
+          command: ./gradlew app:appDistributionUploadDebug
       - save_cache:
           paths:
             - ~/.gradle
@@ -162,16 +168,16 @@ workflows:
           type: approval
           requires:
             - build_debug_apk
-#          filters:
-#            branches:
-#              only: master
-#            tags:
-#              only: /.*/
+          filters:
+            branches:
+              only: master
+            tags:
+              only: /.*/
       - build_release_bundle:
           requires:
             - approve_release
-#          filters:
-#            branches:
-#              only: master
-#            tags:
-#              only: /.*/
+          filters:
+            branches:
+              only: master
+            tags:
+              only: /.*/
