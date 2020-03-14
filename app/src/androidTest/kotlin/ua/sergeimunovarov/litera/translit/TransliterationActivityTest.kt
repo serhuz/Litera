@@ -1,9 +1,9 @@
 /*
- * Copyright © Sergei Munovarov. All rights reserved.
- * See LICENCE for license details.
+ *   Copyright © Sergei Munovarov. All rights reserved.
+ *   See LICENCE for license details.
  */
 
-package ua.sergeimunovarov.litera
+package ua.sergeimunovarov.litera.translit
 
 import android.content.Intent
 import androidx.test.core.app.ActivityScenario
@@ -13,7 +13,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.platform.app.InstrumentationRegistry
 import org.junit.Test
-import ua.sergeimunovarov.litera.translit.TransliterationActivity
+import ua.sergeimunovarov.litera.R
 
 class TransliterationActivityTest {
 

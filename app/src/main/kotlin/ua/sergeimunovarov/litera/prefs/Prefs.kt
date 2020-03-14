@@ -7,9 +7,14 @@ package ua.sergeimunovarov.litera.prefs
 
 import android.content.SharedPreferences
 
-class Prefs(private val preferences: SharedPreferences) {
+interface Prefs {
 
     var setting: Setting
+}
+
+class PrefsImpl(private val preferences: SharedPreferences) : Prefs {
+
+    override var setting: Setting
         get() = preferences.getString(keySetting, defaultStandard)!!.fromJson()
         set(value) = preferences.edit().putString(keySetting, value.toJson()).apply()
 }

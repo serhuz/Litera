@@ -14,25 +14,24 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
+import org.koin.androidx.viewmodel.ext.android.stateViewModel
 import ua.sergeimunovarov.litera.BaseActivity
 import ua.sergeimunovarov.litera.R
 import ua.sergeimunovarov.litera.databinding.ActivityTransliterationBinding
 import ua.sergeimunovarov.litera.util.applyVisibilityAdListener
 import ua.sergeimunovarov.litera.util.loadAdWithDefaultRequest
-import javax.inject.Inject
 
 @FlowPreview
 @ExperimentalCoroutinesApi
 class TransliterationActivity : BaseActivity() {
 
-    @Inject
-    lateinit var viewModel: TransliterationActivityViewModel
+    private val viewModel: TransliterationActivityViewModel by stateViewModel()
 
     private lateinit var binding: ActivityTransliterationBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        app().initTranslitComponent(this).inject(this)
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_transliteration)
         setResult(Activity.RESULT_CANCELED)
 
@@ -74,10 +73,5 @@ class TransliterationActivity : BaseActivity() {
         val token = currentFocus?.windowToken ?: binding.input.windowToken
         (getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)
                 .hideSoftInputFromWindow(token, 0)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        app().releaseTranslitComponent()
     }
 }

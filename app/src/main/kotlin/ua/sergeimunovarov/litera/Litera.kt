@@ -6,52 +6,55 @@
 package ua.sergeimunovarov.litera
 
 import android.app.Application
+import android.content.SharedPreferences
+import androidx.lifecycle.SavedStateHandle
+import androidx.preference.PreferenceManager
+import androidx.room.Room
 import com.google.android.gms.ads.MobileAds
-import ua.sergeimunovarov.litera.di.*
-import ua.sergeimunovarov.litera.main.MainActivity
-import ua.sergeimunovarov.litera.translit.TransliterationActivity
+import com.google.firebase.analytics.FirebaseAnalytics
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.context.startKoin
+import org.koin.dsl.module
+import ua.sergeimunovarov.litera.db.ItemDatabase
+import ua.sergeimunovarov.litera.main.MainActivityViewModel
+import ua.sergeimunovarov.litera.prefs.Prefs
+import ua.sergeimunovarov.litera.prefs.PrefsImpl
+import ua.sergeimunovarov.litera.translit.TransliterationActivityViewModel
 
 open class Litera : Application() {
 
-    lateinit var appComponent: AppComponent
+    private val appModule = module {
+        single<SharedPreferences> { PreferenceManager.getDefaultSharedPreferences(androidContext()) }
+        single<Prefs> { PrefsImpl(get()) }
+        single { FirebaseAnalytics.getInstance(androidContext()) }
+        single { Events(get()) }
+        single { StringProvider(androidContext()) }
+    }
 
-    private var mainComponent: MainComponent? = null
-    private var translitComponent: TranslitComponent? = null
+    private val dbModule = module {
+        single { Room.databaseBuilder(androidContext(), ItemDatabase::class.java, BuildConfig.DB_NAME).build() }
+        single { get<ItemDatabase>().itemDao() }
+    }
+
+    private val mainModule = module {
+        viewModel { MainActivityViewModel(get(), get(), get()) }
+    }
+
+    private val translitModule = module {
+        viewModel { (state: SavedStateHandle) ->
+            TransliterationActivityViewModel(state, get(), get())
+        }
+    }
 
     override fun onCreate() {
         super.onCreate()
         MobileAds.initialize(this, "ca-app-pub-6718743335584538~6078046605")
-        initAppComponent()
-    }
-
-    private fun initAppComponent() {
-        appComponent = DaggerAppComponent
-                .builder()
-                .appModule(AppModule(this))
-                .build()
-    }
-
-    fun initMainComponent(activity: MainActivity): MainComponent =
-            mainComponent ?: DaggerMainComponent
-                    .builder()
-                    .appComponent(appComponent)
-                    .mainModule(MainModule(activity))
-                    .build()
-                    .also { mainComponent = it }
-
-    fun releaseMainComponent() {
-        mainComponent = null
-    }
-
-    fun initTranslitComponent(activity: TransliterationActivity): TranslitComponent =
-            translitComponent ?: DaggerTranslitComponent
-                    .builder()
-                    .appComponent(appComponent)
-                    .translitModule(TranslitModule(activity))
-                    .build()
-                    .also { translitComponent = it }
-
-    fun releaseTranslitComponent() {
-        translitComponent = null
+        startKoin {
+            androidLogger()
+            androidContext(this@Litera)
+            modules(appModule, dbModule, mainModule, translitModule)
+        }
     }
 }

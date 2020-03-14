@@ -24,6 +24,8 @@ import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ua.sergeimunovarov.litera.*
 import ua.sergeimunovarov.litera.databinding.ActivityMainBinding
 import ua.sergeimunovarov.litera.db.Item
@@ -36,26 +38,20 @@ import ua.sergeimunovarov.litera.util.VoiceRecognitionUtil
 import ua.sergeimunovarov.litera.util.applyVisibilityAdListener
 import ua.sergeimunovarov.litera.util.loadAdWithDefaultRequest
 import ua.sergeimunovarov.litera.views.withBackgroundColor
-import javax.inject.Inject
 
 @FlowPreview
 @ExperimentalCoroutinesApi
 class MainActivity : BaseActivity() {
 
-    @Inject
-    lateinit var events: Events
-
-    @Inject
-    lateinit var viewModel: MainActivityViewModel
+    private val events: Events by inject()
+    private val mainActivityViewModel: MainActivityViewModel by viewModel()
 
     private lateinit var binding: ActivityMainBinding
-
     private lateinit var adapter: HistoryAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        app().initMainComponent(this).inject(this)
         OssLicensesMenuActivity.setActivityTitle(getString(R.string.menu_oss_licenses))
 
         initAdapter()
@@ -77,11 +73,11 @@ class MainActivity : BaseActivity() {
     private fun initBinding() {
         binding.apply {
             lifecycleOwner = this@MainActivity
-            model = viewModel
+            model = mainActivityViewModel
             adView.apply { applyVisibilityAdListener() }.loadAdWithDefaultRequest()
             input.showSoftInputOnFocus = false
             historyItems.adapter = adapter
-            SwipeToDeleteHandler<HistoryViewHolder> { viewModel.removeItem(it.item) }
+            SwipeToDeleteHandler<HistoryViewHolder> { mainActivityViewModel.removeItem(it.item) }
                     .let(::ItemTouchHelper)
                     .attachToRecyclerView(historyItems)
         }
@@ -89,7 +85,7 @@ class MainActivity : BaseActivity() {
     }
 
     private fun initViewModel() {
-        viewModel.apply {
+        mainActivityViewModel.apply {
             langSettingsClickEvent.observe(this@MainActivity, Observer {
                 PopupMenu(this@MainActivity, binding.langSetting).also {
                     val langs = getDistinctLanguages().apply {
@@ -206,16 +202,11 @@ class MainActivity : BaseActivity() {
                 data?.let {
                     val input = it.getStringExtra("input")!!
                     val romanized = it.getStringExtra("romanized")!!
-                    viewModel.saveResult(input, romanized)
+                    mainActivityViewModel.saveResult(input, romanized)
                 } ?: error("No data present")
             }
             else -> error("Unexpected request code: $requestCode")
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        app().releaseMainComponent()
     }
 
     companion object {
