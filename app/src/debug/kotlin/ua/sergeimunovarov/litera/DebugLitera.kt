@@ -6,8 +6,12 @@
 package ua.sergeimunovarov.litera
 
 import androidx.preference.PreferenceManager
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import leakcanary.AppWatcher
 
+@FlowPreview
+@ExperimentalCoroutinesApi
 class DebugLitera : Litera() {
 
     override fun onCreate() {

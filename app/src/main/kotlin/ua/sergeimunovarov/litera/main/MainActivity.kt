@@ -37,7 +37,7 @@ import ua.sergeimunovarov.litera.translit.TransliterationActivity
 import ua.sergeimunovarov.litera.util.VoiceRecognitionUtil
 import ua.sergeimunovarov.litera.util.applyVisibilityAdListener
 import ua.sergeimunovarov.litera.util.loadAdWithDefaultRequest
-import ua.sergeimunovarov.litera.views.withBackgroundColor
+import ua.sergeimunovarov.litera.util.withBackgroundColor
 
 @FlowPreview
 @ExperimentalCoroutinesApi

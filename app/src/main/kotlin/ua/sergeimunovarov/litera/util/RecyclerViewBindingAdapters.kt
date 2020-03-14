@@ -5,7 +5,7 @@
 
 @file:Suppress("unused")
 
-package ua.sergeimunovarov.litera.views
+package ua.sergeimunovarov.litera.util
 
 import android.graphics.drawable.Drawable
 import androidx.databinding.BindingAdapter

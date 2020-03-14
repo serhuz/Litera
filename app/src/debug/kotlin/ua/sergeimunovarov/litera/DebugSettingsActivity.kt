@@ -10,8 +10,12 @@ import android.os.Bundle
 import android.widget.CheckBox
 import android.widget.TextView
 import androidx.preference.PreferenceManager
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import leakcanary.AppWatcher
 
+@FlowPreview
+@ExperimentalCoroutinesApi
 class DebugSettingsActivity : BaseActivity() {
 
     @SuppressLint("SetTextI18n")

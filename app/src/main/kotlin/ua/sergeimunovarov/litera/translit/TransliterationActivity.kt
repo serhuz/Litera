@@ -64,8 +64,6 @@ class TransliterationActivity : BaseActivity() {
                 hideKeyboard()
                 finish()
             })
-
-            itemsLiveData.observe(this@TransliterationActivity, Observer(this::updateItems))
         }
     }
 

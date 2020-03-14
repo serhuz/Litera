@@ -7,7 +7,6 @@ package ua.sergeimunovarov.litera.main
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.paging.toLiveData
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -98,13 +97,4 @@ class MainActivityViewModel(private val itemDAO: ItemDAO,
     }
 
     private fun getCurrentStandard() = prefs.setting.standard
-
-    @Suppress("UNCHECKED_CAST")
-    class Factory(private val itemDAO: ItemDAO,
-                  private val prefs: Prefs,
-                  private val stringProvider: StringProvider) : ViewModelProvider.Factory {
-
-        override fun <T : ViewModel> create(modelClass: Class<T>): T =
-                MainActivityViewModel(itemDAO, prefs, stringProvider) as T
-    }
 }

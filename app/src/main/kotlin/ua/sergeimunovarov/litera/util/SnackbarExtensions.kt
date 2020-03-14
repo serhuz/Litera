@@ -3,7 +3,7 @@
  * See LICENCE for license details.
  */
 
-package ua.sergeimunovarov.litera.views
+package ua.sergeimunovarov.litera.util
 
 import androidx.annotation.ColorRes
 import androidx.core.content.res.ResourcesCompat

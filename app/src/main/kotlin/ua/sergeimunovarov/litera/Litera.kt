@@ -12,6 +12,8 @@ import androidx.preference.PreferenceManager
 import androidx.room.Room
 import com.google.android.gms.ads.MobileAds
 import com.google.firebase.analytics.FirebaseAnalytics
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -22,7 +24,11 @@ import ua.sergeimunovarov.litera.main.MainActivityViewModel
 import ua.sergeimunovarov.litera.prefs.Prefs
 import ua.sergeimunovarov.litera.prefs.PrefsImpl
 import ua.sergeimunovarov.litera.translit.TransliterationActivityViewModel
+import ua.sergeimunovarov.litera.translit.translator.TranslatorFactory
+import ua.sergeimunovarov.litera.translit.translator.TranslatorFactoryImpl
 
+@FlowPreview
+@ExperimentalCoroutinesApi
 open class Litera : Application() {
 
     private val appModule = module {
@@ -43,8 +49,9 @@ open class Litera : Application() {
     }
 
     private val translitModule = module {
+        factory<TranslatorFactory> { TranslatorFactoryImpl(get()) }
         viewModel { (state: SavedStateHandle) ->
-            TransliterationActivityViewModel(state, get(), get())
+            TransliterationActivityViewModel(state, get())
         }
     }
 

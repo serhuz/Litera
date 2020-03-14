@@ -5,7 +5,6 @@
 
 package ua.sergeimunovarov.litera.db
 
-import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
 import androidx.room.Dao
 import androidx.room.Insert
@@ -17,9 +16,6 @@ interface ItemDAO {
 
     @Insert(onConflict = REPLACE)
     fun insert(item: Item)
-
-    @Query("SELECT * FROM items WHERE standard = :standard ORDER BY ts DESC LIMIT :amount")
-    fun getLatest(amount: Int, standard: Standard): LiveData<List<Item>>
 
     @Query("DELETE FROM items WHERE id = :id")
     fun deleteItemById(id: Long)
