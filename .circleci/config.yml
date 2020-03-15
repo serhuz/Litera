@@ -164,10 +164,14 @@ workflows:
           requires:
             - test
             - test_ftl
+          filters:
+            branches:
+              ignore: master
       - approve_release:
           type: approval
           requires:
-            - build_debug_apk
+            - test
+            - test_ftl
           filters:
             branches:
               only: master

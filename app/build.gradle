@@ -31,7 +31,7 @@ def generateVersionCode() {
 def generateVersionName() {
     def repo = Grgit.open(dir: project.rootDir)
     def head = repo.head()
-    def headTag = repo.tag.list().find { it.commit == head }
+    def headTag = repo.tag.list().find { it.commit.id == head.id }
     return headTag?.getName() ?: new Date().format("yyyyMMdd-HHmm")
 }
 
