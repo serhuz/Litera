@@ -24,16 +24,15 @@ keyProps.load(new FileInputStream(keyPropsFile))
 import org.ajoberstar.grgit.Grgit
 
 def generateVersionCode() {
-    def isOnMaster = grgit.branch.current().fullName == 'master'
-    def isCircleCiBuild = Boolean.parseBoolean(System.getenv('CIRCLECI') ?: 'false')
-    return (isOnMaster && isCircleCiBuild) ? System.getenv('CIRCLE_BUILD_NUM').toInteger() : 1
+    def isOnMaster = grgit.branch.current().getName() == 'master'
+    return (isOnMaster) ? System.getenv('CIRCLE_BUILD_NUM')?.toInteger() ?: 1 : 1
 }
 
 def generateVersionName() {
     def repo = Grgit.open(dir: project.rootDir)
     def head = repo.head()
     def headTag = repo.tag.list().find { it.commit == head }
-    return (headTag == null) ? new Date().format("yyyyMMdd-HHmm") : headTag.fullName
+    return headTag?.getName() ?: new Date().format("yyyyMMdd-HHmm")
 }
 
 android {
