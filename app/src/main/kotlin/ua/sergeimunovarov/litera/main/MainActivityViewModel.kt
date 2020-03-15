@@ -9,11 +9,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.toLiveData
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
-import ua.sergeimunovarov.litera.DispatcherRegistry
 import ua.sergeimunovarov.litera.StringProvider
 import ua.sergeimunovarov.litera.VoidLiveEvent
 import ua.sergeimunovarov.litera.db.Item
@@ -86,13 +86,13 @@ class MainActivityViewModel(private val itemDAO: ItemDAO,
 
     fun saveResult(input: String, romanized: String) {
         flow { emit(itemDAO.insert(Item(original = input, romanized = romanized, standard = prefs.setting.standard))) }
-                .flowOn(DispatcherRegistry.io)
+                .flowOn(Dispatchers.IO)
                 .launchIn(viewModelScope)
     }
 
     fun removeItem(item: Item) {
         flow { emit(item.id?.let(itemDAO::deleteItemById)) }
-                .flowOn(DispatcherRegistry.io)
+                .flowOn(Dispatchers.IO)
                 .launchIn(viewModelScope)
     }
 

@@ -6,13 +6,13 @@
 package ua.sergeimunovarov.litera.translit
 
 import androidx.lifecycle.*
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.onEach
-import ua.sergeimunovarov.litera.DispatcherRegistry
 import ua.sergeimunovarov.litera.VoidLiveEvent
 import ua.sergeimunovarov.litera.db.Item
 import ua.sergeimunovarov.litera.translit.translator.TranslatorFactory
@@ -36,13 +36,13 @@ class TransliterationActivityViewModel(private val state: SavedStateHandle,
                     romanized = input.asFlow()
                             .onEach { state[KEY_INPUT] = it }
                             .flatMapConcat { romanizeText(it.trim()) }
-                            .asLiveData(DispatcherRegistry.main + viewModelScope.coroutineContext)
+                            .asLiveData(Dispatchers.Main + viewModelScope.coroutineContext)
                 }
     }
 
     private fun romanizeText(text: String) =
             flow { emit(translator.replaceCharacters(text)) }
-                    .flowOn(DispatcherRegistry.io)
+                    .flowOn(Dispatchers.IO)
 
     fun exit() {
         exitEvent.call()
