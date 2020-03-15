@@ -89,6 +89,14 @@ jobs:
               --device model=Pixel2,version=28,locale=en,orientation=portrait \
               --num-flaky-test-attempts=0 \
               --use-orchestrator | tee -a ~/ftl.txt
+      - run:
+          name: Create directory to store test results
+          command: mkdir ~/firebase
+      - run:
+          name: Get test results
+          command: gsutil -m cp -r -U "`gsutil ls gs://test-lab-k4k5c8p7vt3wa-j871uabrjm2kw | tail -1`*" ~/firebase/
+      - store_test_results:
+          path: ~/firebase
       - store_artifacts:
           path: ~/ftl.txt
           destination: ftl.txt
