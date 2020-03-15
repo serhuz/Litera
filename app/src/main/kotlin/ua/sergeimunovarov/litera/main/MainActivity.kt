@@ -133,8 +133,8 @@ class MainActivity : BaseActivity() {
                 }
             })
             historyItems.observe(this@MainActivity, Observer {
-                adapter.submitList(it)
                 itemsLoaded.value = true
+                adapter.submitList(it)
             })
         }
     }
@@ -155,8 +155,8 @@ class MainActivity : BaseActivity() {
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item?.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
             R.id.mmLicence ->
                 Intent(this, OssLicensesMenuActivity::class.java).let(this::startActivity)
             R.id.mmPrivacyPolicy ->

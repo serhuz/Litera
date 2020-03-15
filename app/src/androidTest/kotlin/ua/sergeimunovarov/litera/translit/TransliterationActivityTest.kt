@@ -18,6 +18,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.nhaarman.mockitokotlin2.*
 import org.assertj.core.api.Condition
 import org.assertj.core.api.Java6Assertions.assertThat
+import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -46,6 +47,11 @@ class TransliterationActivityTest : KoinTest {
         translator = mock {
             on { replaceCharacters(any()) } doReturn "test"
         }
+    }
+
+    @After
+    fun tearDown() {
+        scenario.close()
     }
 
     @Test

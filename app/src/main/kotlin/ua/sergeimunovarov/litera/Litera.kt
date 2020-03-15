@@ -35,7 +35,7 @@ open class Litera : Application() {
         single<SharedPreferences> { PreferenceManager.getDefaultSharedPreferences(androidContext()) }
         single<Prefs> { PrefsImpl(get()) }
         single { FirebaseAnalytics.getInstance(androidContext()) }
-        single { Events(get()) }
+        single<Events> { EventsImpl(get()) }
         single { StringProvider(androidContext()) }
     }
 
