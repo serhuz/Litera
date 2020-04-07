@@ -55,7 +55,7 @@ android {
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
 
         buildConfigField("String", "DB_NAME", "\"litera.db\"")
-        buildConfigField("String", "PRIVACY_POLICY_URL", "\"https://serhuz.github.io/litera-app/privacy_policy\"")
+        buildConfigField("String", "PRIVACY_POLICY_URL", "\"https://serhuz.github.io/Litera/privacy_policy\"")
     }
 
     compileOptions {
