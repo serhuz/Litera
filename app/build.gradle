@@ -170,7 +170,7 @@ dependencies {
     implementation "androidx.room:room-runtime:$roomVersion"
     kapt "androidx.room:room-compiler:$roomVersion"
 
-    implementation "androidx.paging:paging-runtime-ktx:2.1.1"
+    implementation "androidx.paging:paging-runtime-ktx:2.1.2"
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
