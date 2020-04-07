@@ -137,7 +137,7 @@ android {
 
 ext {
     lifecycleVersion = '2.2.0'
-    roomVersion = '2.2.4'
+    roomVersion = '2.2.5'
     preferenceVersion = "1.1.0"
     koinVersion= '2.1.5'
 
