@@ -16,6 +16,9 @@ import android.speech.RecognizerIntent
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.PopupMenu
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -77,7 +80,14 @@ class MainActivity : BaseActivity() {
             adView.apply { applyVisibilityAdListener() }.loadAdWithDefaultRequest()
             input.showSoftInputOnFocus = false
             historyItems.adapter = adapter
-            SwipeToDeleteHandler<HistoryViewHolder> { mainActivityViewModel.removeItem(it.item) }
+            val deleteIcon =
+                    ContextCompat.getDrawable(applicationContext, R.drawable.ic_delete)!!.mutate().apply {
+                        DrawableCompat.setTint(
+                                this,
+                                ResourcesCompat.getColor(resources, R.color.white, theme)
+                        )
+                    }
+            SwipeToDeleteHandler<HistoryViewHolder>(deleteIcon) { mainActivityViewModel.removeItem(it.item) }
                     .let(::ItemTouchHelper)
                     .attachToRecyclerView(historyItems)
         }
