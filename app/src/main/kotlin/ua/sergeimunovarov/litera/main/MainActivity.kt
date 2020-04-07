@@ -33,6 +33,7 @@ import ua.sergeimunovarov.litera.*
 import ua.sergeimunovarov.litera.databinding.ActivityMainBinding
 import ua.sergeimunovarov.litera.db.Item
 import ua.sergeimunovarov.litera.db.getDistinctLanguages
+import ua.sergeimunovarov.litera.main.history.DeletionItemDecoration
 import ua.sergeimunovarov.litera.main.history.HistoryAdapter
 import ua.sergeimunovarov.litera.main.history.HistoryViewHolder
 import ua.sergeimunovarov.litera.main.history.SwipeToDeleteHandler
@@ -79,7 +80,9 @@ class MainActivity : BaseActivity() {
             model = mainActivityViewModel
             adView.apply { applyVisibilityAdListener() }.loadAdWithDefaultRequest()
             input.showSoftInputOnFocus = false
-            historyItems.adapter = adapter
+            val deletionItemDecoration = DeletionItemDecoration()
+            historyItems.addItemDecoration(deletionItemDecoration)
+            historyItems.adapter = adapter.also(deletionItemDecoration::observeAdapter)
             val deleteIcon =
                     ContextCompat.getDrawable(applicationContext, R.drawable.ic_delete)!!.mutate().apply {
                         DrawableCompat.setTint(
