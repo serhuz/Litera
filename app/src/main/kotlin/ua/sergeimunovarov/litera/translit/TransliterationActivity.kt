@@ -72,4 +72,9 @@ class TransliterationActivity : BaseActivity() {
         (getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)
                 .hideSoftInputFromWindow(token, 0)
     }
+
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(R.anim.stay, R.anim.slide_out_down)
+    }
 }

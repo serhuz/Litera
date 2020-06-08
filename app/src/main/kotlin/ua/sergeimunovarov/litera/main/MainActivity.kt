@@ -123,9 +123,9 @@ class MainActivity : BaseActivity() {
                 }.show()
             })
             inputClickEvent.observe(this@MainActivity, Observer {
-                // todo set transition
                 val intent = Intent(this@MainActivity, TransliterationActivity::class.java)
                 startActivityForResult(intent, CODE_TRANSLIT)
+                overridePendingTransition(R.anim.slide_in_up, R.anim.stay)
             })
             cameraRecognitionEvent.observe(this@MainActivity, Observer {
                 events.logCameraRecognition()
