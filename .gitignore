@@ -137,3 +137,6 @@ projectFilesBackup/
 .idea/vcs.xml
 .idea/workspace.xml
 /.idea/misc.xml
+/.idea/libraries/
+/.idea/assetWizardSettings.xml
+/.idea/jarRepositories.xml
